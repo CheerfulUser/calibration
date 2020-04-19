@@ -56,8 +56,8 @@ def Add_k2_info(stars, path, save):
                 pdc = hdu[1].data.field('PDCSAP_FLUX')
                 sap = hdu[1].data.field('SAP_FLUX')
             except KeyError:
-                pdc = pdc,hdu[1].data.field('FLUX')
-                sap = sap,hdu[1].data.field('FRAW')
+                pdc = hdu[1].data.field('FLUX')
+                sap = hdu[1].data.field('FRAW')
                     
 
         
