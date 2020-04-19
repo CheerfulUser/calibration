@@ -26,12 +26,13 @@ def Add_k2_info(stars, path, save):
     files = glob(path + '*.fits')
     for file in files:
         camp = file.split('-c')[-1].split('_')[0].strip('0')
+        epic = int(file.split('llc_')[-1].split('-')[0])
         if '111' in camp:
             camp = '11'
             eleven = file.split('c111')
             pdc = np.array([])
             sap = np.array([])
-            epic = int(file.split('ktwo')[-1].split('-')[0])
+            
             for i in range(2):
 
                 hdu = fits.open(eleven[0]+'c11' + str(i) + eleven[1])
@@ -46,18 +47,17 @@ def Add_k2_info(stars, path, save):
                     pdc = np.append(pdc,hdu[1].data.field('FLUX'))
                     sap = np.append(sap,hdu[1].data.field('FRAW'))
         else:
-            epic = int(file.split('ktwo')[-1].split('-')[0])
             hdu = fits.open(file)
             hdr = hdu[0].header
             module = hdr['module']
             channel = hdr['channel']
             output = hdr['output']
             try:
-                pdc = np.append(pdc,hdu[1].data.field('PDCSAP_FLUX'))
-                sap = np.append(sap,hdu[1].data.field('SAP_FLUX'))
+                pdc = hdu[1].data.field('PDCSAP_FLUX')
+                sap = hdu[1].data.field('SAP_FLUX')
             except KeyError:
-                pdc = np.append(pdc,hdu[1].data.field('FLUX'))
-                sap = np.append(sap,hdu[1].data.field('FRAW'))
+                pdc = pdc,hdu[1].data.field('FLUX')
+                sap = sap,hdu[1].data.field('FRAW')
                     
 
         
