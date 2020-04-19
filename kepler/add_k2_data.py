@@ -48,7 +48,7 @@ def Add_k2_info(stars, path, save):
                     except KeyError:
                         pdc = np.append(pdc,hdu[1].data.field('FLUX'))
                         sap = np.append(sap,hdu[1].data.field('FRAW'))
-        else:
+        elif '112' not in camp:
             hdu = fits.open(file)
             hdr = hdu[0].header
             module = hdr['module']
