@@ -35,7 +35,7 @@ def Add_k2_info(stars, path, save):
             
             for i in range(2):
 
-                hdu = fits.open(eleven[0]+'c11' + str(i) + eleven[1])
+                hdu = fits.open(eleven[0]+'c11' + str(i+1) + eleven[1])
                 hdr = hdu[0].header
                 module = hdr['module']
                 channel = hdr['channel']
