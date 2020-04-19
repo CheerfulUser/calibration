@@ -2,6 +2,7 @@ from astropy.io import fits
 import numpy as np
 import pandas as pd
 from glob import glob
+import os.path
 
 path = '/home/rridden/data/kepler/everest/'
 stars = 'K2_all_PS1_psc.csv'
@@ -34,18 +35,19 @@ def Add_k2_info(stars, path, save):
             sap = np.array([])
             
             for i in range(2):
-
-                hdu = fits.open(eleven[0]+'c11' + str(i+1) + eleven[1])
-                hdr = hdu[0].header
-                module = hdr['module']
-                channel = hdr['channel']
-                output = hdr['output']
-                try:
-                    pdc = np.append(pdc,hdu[1].data.field('PDCSAP_FLUX'))
-                    sap = np.append(sap,hdu[1].data.field('SAP_FLUX'))
-                except KeyError:
-                    pdc = np.append(pdc,hdu[1].data.field('FLUX'))
-                    sap = np.append(sap,hdu[1].data.field('FRAW'))
+                name = eleven[0]+'c11' + str(i+1) + eleven[1]
+                if os.path.isfile(name):
+                    hdu = fits.open(name)
+                    hdr = hdu[0].header
+                    module = hdr['module']
+                    channel = hdr['channel']
+                    output = hdr['output']
+                    try:
+                        pdc = np.append(pdc,hdu[1].data.field('PDCSAP_FLUX'))
+                        sap = np.append(sap,hdu[1].data.field('SAP_FLUX'))
+                    except KeyError:
+                        pdc = np.append(pdc,hdu[1].data.field('FLUX'))
+                        sap = np.append(sap,hdu[1].data.field('FRAW'))
         else:
             hdu = fits.open(file)
             hdr = hdu[0].header
@@ -61,7 +63,7 @@ def Add_k2_info(stars, path, save):
                     
         if camp == '':
             camp = 0
-            
+
         pos = np.where((int(epic) == df['ID'].values.astype(int)) & 
               (int(camp) == df['campaign'].values.astype(int)))[0]
         if len(pos) > 0:
