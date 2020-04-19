@@ -59,8 +59,8 @@ def Add_k2_info(stars, path, save):
                 pdc = hdu[1].data.field('FLUX')
                 sap = hdu[1].data.field('FRAW')
                     
-
-        print(camp)
+        print('trying',file)
+        print('camp',camp)
         pos = np.where((int(epic) == df['ID'].values.astype(int)) & 
               (int(camp) == df['campaign'].values.astype(int)))[0]
         if len(pos) > 0:
