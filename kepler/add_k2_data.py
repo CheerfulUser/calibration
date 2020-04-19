@@ -4,8 +4,8 @@ import pandas as pd
 from glob import glob
 
 path = '/home/rridden/data/kepler/everest/'
-stars = 'c16_all_stars.csv'
-save = 'c16_all_stars_ev.csv'
+stars = 'K2_all_PS1_psc.csv'
+save = 'K2_all_PS1_psc_ev.csv'
 
 
 def Add_k2_info(stars, path, save):
