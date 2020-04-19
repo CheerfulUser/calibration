@@ -60,7 +60,7 @@ def Add_k2_info(stars, path, save):
                 sap = hdu[1].data.field('FRAW')
                     
 
-        
+        print(camp)
         pos = np.where((int(epic) == df['ID'].values.astype(int)) & 
               (int(camp) == df['campaign'].values.astype(int)))[0]
         if len(pos) > 0:
